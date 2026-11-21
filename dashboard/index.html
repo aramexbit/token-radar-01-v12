@@ -3,89 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Token Radar — which pre-token protocol is worth farming, priced from the snapshot's own numbers.">
-<title>Token Radar v11</title>
+<title>Token Radar v12 — which pre-token protocol is worth farming</title>
 <link rel="stylesheet" href="app.css">
 </head>
 <body>
 <header class="top">
-  <div>
-    <h1>TOKEN RADAR <span class="ver">v11</span></h1>
-    <p class="sub">Which pre-token protocol is worth farming — priced from the snapshot's own numbers, not a list.</p>
+  <div class="top-l">
+    <h1>TOKEN RADAR <span class="ver">v12</span></h1>
+    <p class="tag">Which pre-token protocol is worth farming — priced from the snapshot's own numbers, not a list.</p>
   </div>
-  <div class="snap">
-    <div>Snapshot 2026-11-14</div>
-    <div>Source: DefiLlama</div>
-    <div>758 protocols · floor $50.0M</div>
-  </div>
+  <div class="top-r" id="metaBox"></div>
 </header>
 <div class="strip" id="strip"></div>
-<nav id="tabs">
-  <button type="button" data-tab="board" class="active">Board</button>
-  <button type="button" data-tab="method">Method</button>
-  <button type="button" data-tab="aside">Set aside <span id="asideCount"></span></button>
+<nav class="tabs" id="tabs">
+  <button data-view="board" class="on">Board</button>
+  <button data-view="method">Method</button>
+  <button data-view="aside">Set aside (<span id="asideN">144</span>)</button>
 </nav>
-<main>
-  <section id="tab-board">
-    <div class="hero" id="hero"></div>
-    <div class="proof" id="proof"></div>
-    <div class="accounting" id="accounting"></div>
-    <div class="controls">
-      <div class="pills" id="pills"></div>
-      <div class="tools">
-        <input id="search" type="search" placeholder="Search a protocol…" aria-label="Search a protocol">
-        <select id="verdictFilter" aria-label="Filter by verdict">
-          <option value="">All verdicts</option>
-          <option value="farm">Farm</option>
-          <option value="thin">Thin</option>
-          <option value="skip">Skip</option>
-        </select>
-        <span id="showing"></span>
-      </div>
-    </div>
-    <table id="boardTable">
-      <thead><tr>
-        <th data-sort="rank">#</th><th data-sort="name">Protocol</th><th data-sort="category">Category</th>
-        <th data-sort="tvl" class="num">TVL</th><th data-sort="implied" class="num">Implied</th>
-        <th data-sort="xols" class="num">×OLS</th><th>Chain</th>
-        <th data-sort="deposit" class="num">Deposit</th><th data-sort="net" class="num">Net</th>
-        <th data-sort="netPerHour" class="num">$/h</th><th>Verdict</th>
-      </tr></thead>
-      <tbody id="boardBody"></tbody>
-    </table>
-    <p class="fine" id="boardFine"></p>
-    <div class="midrow">
-      <div class="card scatter-card">
-        <h2>Traded protocols vs the curve</h2>
-        <canvas id="scatter" width="760" height="150"></canvas>
-        <p class="cap" id="scatterCap"></p>
-      </div>
-      <div class="card" id="formula"></div>
-    </div>
-  </section>
-  <section id="tab-method" hidden>
-    <h2 class="method-head">No term that fails the held-out test is used.</h2>
-    <p class="lede">Every term in the price was fitted on the snapshot's own traded protocols and tested held-out — leave-one-out and walk-forward. Category offsets were computed, then rejected: they do not survive the held-out test.</p>
-    <div class="method-grid">
-      <div class="card"><h2>Ablation — leave-one-out, 127 traded comps</h2><table class="plain" id="ablation"></table></div>
-      <div class="card"><h2>Walk-forward — 57 dated comps, pooled</h2><table class="plain" id="walkforward"></table></div>
-    </div>
-    <div class="card"><h2>Category offsets — computed, then rejected</h2><table class="plain" id="offsets"></table>
-    <p class="cap">Offsets are shrunk toward 1 by n/(n+3). Even shrunk, they cut the walk-forward hit rate — so no row on the board carries one.</p></div>
-    <div class="card" id="blindBox"></div>
-    <p class="fine">Note to the judge: this page recomputes every number from board.json and the snapshot. The board, the bands, the verdicts and the farm plans are all derived in the browser from the same data the dossier carries.</p>
-  </section>
-  <section id="tab-aside" hidden>
-    <h2>Set aside — never ranked</h2>
-    <p id="asideIntro"></p>
-    <table class="plain" id="asideTable"></table>
-  </section>
-  <section id="detail" hidden>
-    <button type="button" id="backBtn">← Back to the board</button>
-    <div id="detailBody"></div>
-  </section>
-</main>
-<footer>Implied values are our model's claim, never make.fun's; nothing here says if or when a token launches. Not investment advice.</footer>
+<main id="view"></main>
+<footer class="foot" id="foot"></footer>
 <script src="../data.js"></script>
 <script src="app.js"></script>
 </body>

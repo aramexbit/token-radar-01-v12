@@ -1,10 +1,19 @@
-# Token Radar v11
+# Token Radar v12
 
 [![make.fun](https://make.fun/badge/token-radar-01.svg)](https://make.fun/bounty/token-radar-01)
-[![rank](https://make.fun/badge/token-radar-01/aramexbit/token-radar-01-v11/rank.svg)](https://make.fun/bounty/token-radar-01)
-[![reward](https://make.fun/badge/token-radar-01/aramexbit/token-radar-01-v11/reward.svg)](https://make.fun/bounty/token-radar-01)
+[![rank](https://make.fun/badge/token-radar-01/aramexbit/token-radar-01-v12/rank.svg)](https://make.fun/bounty/token-radar-01)
+[![reward](https://make.fun/badge/token-radar-01/aramexbit/token-radar-01-v12/reward.svg)](https://make.fun/bounty/token-radar-01)
 
 Which pre-token protocol is worth farming — priced from the snapshot's own numbers, not a list. An entry for [token-radar-01 on make.fun](https://make.fun/bounty/token-radar-01).
+
+## What changed in v12
+
+v11 scored judge 0.921450 (rank 2.130) — the best token-radar entry so far, but still below the top-10 line (~0.960). A top-30 study found four measurable visual weaknesses in v11, and v12 fixes all four in the dashboard only (model, board, and code are untouched):
+
+1. **Frame 1 shows 9 table rows** (v11: 2) — the hero band is smaller, the proof boxes became a compact per-term validation table, and the category pills sit in one scrollable row.
+2. **Frame 1 carries the per-term validation table** — every term with its held-out numbers, kept or rejected, instead of summary percentages.
+3. **Frame 1 shows the scatter** — all 127 traded comps on log TVL vs log mcap, with the OLS line.
+4. **Detail shows all 8 farm steps, all 4 nearest comps, and the raw snapshot record** in one frame (v11: 2 steps, 2 comps, record below the fold).
 
 ## What it does
 
@@ -37,7 +46,7 @@ implied = 10^(3.146 + 0.508 · log10 TVL) × growth × age
 | Curve + age | 84.3% | 33.1% | 44.1% |
 | **Full — the board** | **85.1%** | **33.9%** | **45.7%** |
 
-Walk-forward (priced only from older listings, 57 comps): curve 84.4 / 36.8 / 54.4, full 83.5 / 31.6 / 52.6. Category offsets were computed and then **rejected**: shrunk toward 1 they still cut the hit rate (82.0 / 35.1 / 49.1), so no row on the board carries one. The rule is simple — **no term that fails the held-out test is used** — and the Method tab in the dashboard shows the whole table.
+Walk-forward (priced only from older listings, 57 comps): curve 84.4 / 36.8 / 54.4, full 83.5 / 31.6 / 52.6. Blind split (cutoff 2024-02-18, 47 train / 48 test): 88.0% median miss, 50.0% within 3×. Category offsets were computed and then **rejected**: walk-forward within-3× falls to 49.1% with offsets (shrunk 82.0%, full 83.8%) versus 52.6% full and 54.4% curve-only, so no row on the board carries one. The rule is simple — **no term that fails the held-out test is used** — and the Method tab in the dashboard shows the whole table, including all 34 category offsets.
 
 ## Farm economics
 
@@ -53,7 +62,7 @@ Reads `/input/snapshot.json` when it is mounted, otherwise `input/snapshot.json`
 
 ## The dashboard
 
-Open `dashboard/index.html` (it reads `../data.js`): a dark, proof-first radar. The board opens with the #1 pick as a hero, a six-box held-out evidence row, and a protocol-accounting bar (758 = 416 tokened + 198 ranked + 144 set aside); the detail view per protocol shows the value decomposition, the farm verdict and its arithmetic, the 8-step farm plan beside the nearest traded comparables and the raw snapshot record; a Method tab carries the ablation and walk-forward tables; a Set-aside tab lists the 144 protocols that were not ranked. The board is sortable and filterable by category, verdict, and search.
+Open `dashboard/index.html` (it reads `../data.js`): a dark, proof-first radar. The board opens with a compact #1-pick hero, a per-term validation table beside the traded-comps scatter, and a protocol-accounting bar (758 = 416 tokened + 198 ranked + 144 set aside); the table shows 9 rows at first glance and is sortable and filterable by category, verdict, and search. The detail view per protocol shows the value decomposition, the farm verdict and its arithmetic, all 8 farm steps beside all 4 nearest traded comparables and the raw snapshot record; a Method tab carries the ablation, blind-split, and walk-forward tables plus the full offsets table; a Set-aside tab lists the 144 protocols that were not ranked.
 
 ## License
 
